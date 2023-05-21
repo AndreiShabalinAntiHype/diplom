@@ -13,3 +13,16 @@ class UpdateN extends DrawingEvent {
   num n;
   UpdateN(this.n);
 }
+
+class UpdatePoints extends DrawingEvent {
+  UpdatePoints();
+}
+
+class UpdatePos extends DrawingEvent {
+  UpdatePos();
+}
+
+class UpdateR extends DrawingEvent {
+  final double r;
+  UpdateR(this.r);
+}

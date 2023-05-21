@@ -21,10 +21,10 @@ class ParametersLayout extends StatelessWidget {
             ),
             CustomSlider("Num of points", (p) {
               context.read<DrawingBloc>().add(UpdateN(p));
-            }, drawingBlocState.numOfPoints as double, 1, 20000),
-            CustomSlider("Velocity angle", (p) {
-              context.read<DrawingBloc>().add(UpdateAngle(p));
-            }, drawingBlocState.startingAngle, 0, pi * 2),
+            }, drawingBlocState.numOfPoints as double, 1, 5000),
+            CustomSlider("Radius", (p) {
+              context.read<DrawingBloc>().add(UpdateR(p.toDouble()));
+            },500, 0, 2000),
             // CustomSlider("Velocity angle", (p) {
             //   context.read<DrawingBloc>().add(UpdateVAngle(p));
             // }, drawingBlocState.velocityAngle, 1, 5),

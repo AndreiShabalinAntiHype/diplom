@@ -9,9 +9,10 @@ part 'drawing_state.dart';
 
 class DrawingBloc extends Bloc<DrawingEvent, DrawingState> {
   final repo = DrawingRepo();
-  DrawingBloc() : super(DrawingState()) {
+  DrawingBloc() : super(DrawingState( Float32List.fromList([]))) {
     on<UpdateN>(_updateN);
-    on<UpdateAngle>(_updateAngle);
+    on<UpdatePos>(_updatePos);
+    // on<UpdateAngle>(_updateAngle);
     // on<UpdateVAngle>(_updateVAngle);
   }
 
@@ -20,10 +21,16 @@ class DrawingBloc extends Bloc<DrawingEvent, DrawingState> {
     emitFromRepo(emit);
   }
 
-  Future<void> _updateAngle(UpdateAngle e, Emitter emit) async {
-    repo.updateAngle(e.angle.toDouble());
-    emitFromRepo(emit);
+  Future<void> _updatePos(UpdatePos e, Emitter emit) async {
+    repo.updatePos();
+        emitFromRepo(emit);
   }
+
+
+  // Future<void> _updateAngle(UpdateAngle e, Emitter emit) async {
+  //   repo.updateAngle(e.angle.toDouble());
+  //   emitFromRepo(emit);
+  // }
 
   // Future<void> _updateVAngle(UpdateVAngle e, Emitter emit) async {
   //   repo.updateVAngle(e.vAngle);
@@ -31,9 +38,8 @@ class DrawingBloc extends Bloc<DrawingEvent, DrawingState> {
   // }
 
   emitFromRepo(Emitter emit) {
-    emit(DrawingState(
+    emit(DrawingState(repo.getRawPos,
       n: repo.numOfPoints,
-      angle: repo.startingAngle,
     ));
   }
 }
