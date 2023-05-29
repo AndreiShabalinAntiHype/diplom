@@ -43,15 +43,20 @@ void dispose() {
         final double painterWidth =
             queryData.size.width - AppConstants.paramsLayout;
         final double painterHeight = queryData.size.height;
-        return SizedBox(
-          width: painterWidth,
-          height: painterHeight,
-          child: InteractiveViewer(
-            minScale: 0.2,
-            maxScale: 2,
-              child: CustomPaint(
-            painter: MainPainter(painterWidth, painterHeight, state),
-          )),
+        return GestureDetector(
+          onTapDown:(details) {
+            // print(details);
+          },
+          child: SizedBox(
+            width: painterWidth,
+            height: painterHeight,
+            child: InteractiveViewer(
+              minScale: 0.2,
+              maxScale: 2,
+                child: CustomPaint(
+              painter: MainPainter(painterWidth, painterHeight, state),
+            )),
+          ),
         );
       },
     );

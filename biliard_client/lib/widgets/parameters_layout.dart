@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:biliard_client/drawing_bloc/drawing_bloc.dart';
 import 'package:biliard_client/widgets/slider_dart.dart';
 import 'package:flutter/material.dart';
@@ -19,16 +17,30 @@ class ParametersLayout extends StatelessWidget {
             const SizedBox(
               height: 50,
             ),
-            CustomSlider("Num of points", (p) {
-              context.read<DrawingBloc>().add(UpdateN(p));
-            }, drawingBlocState.numOfPoints as double, 1, 5000),
-            CustomSlider("Radius", (p) {
-              context.read<DrawingBloc>().add(UpdateR(p.toDouble()));
-            },500, 0, 2000),
-            // CustomSlider("Velocity angle", (p) {
-            //   context.read<DrawingBloc>().add(UpdateVAngle(p));
-            // }, drawingBlocState.velocityAngle, 1, 5),
+            numOfPointsSlider(context, drawingBlocState),
+            stopButton(context),
+            startButton(context),
           ],
         ));
   }
+
+  Widget numOfPointsSlider(BuildContext context, DrawingState state) {
+          return      CustomSlider("Num of points", (p) {
+              context.read<DrawingBloc>().add(UpdateN(p));
+            }, state.numOfPoints as double, 1, 2500);
+  }
+
+  Widget stopButton(BuildContext context) {
+  return TextButton(
+    onPressed: () => context.read<DrawingBloc>().add(StopMoving()),
+    child: Text("Stop"),
+  );
+  }
+
+      Widget startButton(BuildContext context) {
+  return TextButton(
+    onPressed: () => context.read<DrawingBloc>().add(StartMoving()),
+    child: Text("Start"),
+  );
+      }
 }

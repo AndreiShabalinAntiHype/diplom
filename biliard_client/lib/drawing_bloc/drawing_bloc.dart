@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'dart:ui';
 
 import 'package:biliard_client/drawing_bloc/drawing_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,8 +13,21 @@ class DrawingBloc extends Bloc<DrawingEvent, DrawingState> {
   DrawingBloc() : super(DrawingState( Float32List.fromList([]))) {
     on<UpdateN>(_updateN);
     on<UpdatePos>(_updatePos);
+    on<SetPainterSize>(_setSize);
     // on<UpdateAngle>(_updateAngle);
     // on<UpdateVAngle>(_updateVAngle);
+    on<StopMoving>(_stop);
+    on<StartMoving>(_start);
+  }
+
+  Future<void> _stop(StopMoving e, Emitter emit) async {
+    repo.stop();
+    emitFromRepo(emit);
+  }
+
+  Future<void> _start(StartMoving e, Emitter emit) async {
+    repo.start();
+    emitFromRepo(emit);
   }
 
   Future<void> _updateN(UpdateN e, Emitter emit) async {
@@ -22,8 +36,16 @@ class DrawingBloc extends Bloc<DrawingEvent, DrawingState> {
   }
 
   Future<void> _updatePos(UpdatePos e, Emitter emit) async {
-    repo.updatePos();
-        emitFromRepo(emit);
+    if (repo.isMoving) {
+      repo.updatePos();
+      emitFromRepo(emit);
+    }
+  }
+
+  Future<void> _setSize(SetPainterSize e, Emitter emit) async {
+    repo.setPainterSize(Size(e.w, e.h));
+            emitFromRepo(emit);
+
   }
 
 

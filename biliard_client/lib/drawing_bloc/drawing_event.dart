@@ -22,7 +22,15 @@ class UpdatePos extends DrawingEvent {
   UpdatePos();
 }
 
-class UpdateR extends DrawingEvent {
-  final double r;
-  UpdateR(this.r);
+class StopMoving extends DrawingEvent {
+  StopMoving();
+}
+
+class StartMoving extends DrawingEvent {
+  StartMoving();
+}
+
+class SetPainterSize extends DrawingEvent {
+  double w,h;
+  SetPainterSize(this.w, this.h);
 }

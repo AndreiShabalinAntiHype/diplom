@@ -27,7 +27,7 @@ FigurePainter.drawFigury(canvas, painterWidth, painterHeight);
       Paint()
         ..color = Colors.red
         ..blendMode = BlendMode.srcOver
-        ..strokeWidth = 1.5,
+        ..strokeWidth = 5,
 );
   }
 

@@ -13,11 +13,12 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
+    context.read<DrawingBloc>().add(SetPainterSize(width - 220, height));
+    return const MaterialApp(
       home: MainPage(),
     );
   }
